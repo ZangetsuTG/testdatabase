@@ -1,95 +1,56 @@
-using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Data.SqlClient;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
+﻿<Page x:Class="test.Pages.LoginForm"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:test.Pages"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="LoginForm" >
 
-namespace test.Pages
-{
-   
-    public partial class LoginForm : Page
-    {
-        public DataTable Select(string selectSQL) //подключение к базе
-        {
-            DataTable dataTable = new DataTable("dataBase");                
-            SqlConnection sqlConnection = new SqlConnection("Data Source=DXD;Initial Catalog=Autification;Integrated Security=True");
-            sqlConnection.Open();                                          
-            SqlCommand sqlCommand = sqlConnection.CreateCommand();          
-            sqlCommand.CommandText = selectSQL;                             
-            SqlDataAdapter sqlDataAdapter = new SqlDataAdapter(sqlCommand);
-            sqlDataAdapter.Fill(dataTable);                                 
+    
+    <Grid>
 
-            sqlConnection.Close();
-            return dataTable;
-        }
+        <Grid.RowDefinitions>
 
+            <RowDefinition />
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        
 
-        public LoginForm()
-        {
-            InitializeComponent();
-
-
-
-        }
-
-        private void Registrarion(object sender, RoutedEventArgs e)
-        {
-
-            AppData.frame.Content = new SignUpForm();
-
-        }
-
-        private void EnterBut(object sender, RoutedEventArgs e) // проверка логина и пароля, передача данных на MenuItem \ MVVM
-        {
-
-            if (usernameform.Text.Length > 0)    
-            {
-                if (passform.Password.Length > 0)          
-                {                     
-                    DataTable dt_user  = Select("SELECT * FROM [dbo].[Entry] WHERE [username] = '" + usernameform.Text + "' AND [password] = '" + passform.Password + "'");
-                    
-                    if (dt_user.Rows.Count>0)
-                    {
-                        var username = dt_user.Rows[0]["username"].ToString();
-                        var password = dt_user.Rows[0]["password"].ToString();
-
-                        if (passform.Password == password)
-                        {
-                            AppData.User = new User();
-                            AppData.User.Name = dt_user.Rows [0]["name"].ToString();
-                            //User.Picture = Encoding.UTF8.GetBytes(dt_user.Rows[0]["avatar"].ToString());                           
-
-                            AppData.User.Username = username;
-                            AppData.User.Password = password;
-
-                            AppData.User.Avatar = Database.DownloadImageFromDatabase();
-
-                            var menuItem = new MenuItem();
-                            menuItem.DataContext = AppData.SharedViewModel;
-                            AppData.frame.Content = menuItem;
-
-                        }
-                       
-                    }
-                    else MessageBox.Show("The username or password is incorrect");
-                }
-                   
-            }
-            else MessageBox.Show("Enter the username"); 
-
-
+        <Border HorizontalAlignment="Center" VerticalAlignment="Center" Background="LightGray" Width="350" Height="300" CornerRadius="60" BorderThickness="1" BorderBrush="Black">
             
-        }
-    }
-}
+                <StackPanel Orientation="Vertical" HorizontalAlignment="Center" Grid.Row="0" VerticalAlignment="Center">
+
+
+                    <Label Content="Username" HorizontalAlignment="Center" FontSize="20" />
+                    <TextBox Margin="0 5 0 10" Width="300" Height="20" x:Name="usernameform" />
+                    
+
+                    <Label Content="Password" HorizontalAlignment="Center" FontSize="20"/>
+                    <PasswordBox Margin="0 5 0 0" Height="20" x:Name="passform"/>
+
+                    
+                <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Center" Margin="0 30 0 10">
+                    
+                    <Button Content="Enter" Height="30" Width="100" Margin="0 0 20 0" Click="EnterBut"/>
+                    
+                    <Button Content="Sign up" Height="30" Width="100" Click="Registrarion"/>
+                    
+                </StackPanel>
+            </StackPanel>
+            
+        </Border>
+        
+        
+        <Ellipse HorizontalAlignment="Center"  Height="60" Width="60" Stroke="Black"  Margin=" 0 0 0 300">
+            <Ellipse.Fill>
+                
+                <ImageBrush ImageSource="Assets/forest.jpg" Stretch="UniformToFill"/>
+                
+            </Ellipse.Fill>
+        </Ellipse>
+
+
+    </Grid>
+</Page>

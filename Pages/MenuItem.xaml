@@ -1,0 +1,75 @@
+﻿<Page x:Class="test.Pages.MenuItem"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:HamburgerMenu="clr-namespace:HamburgerMenu;assembly=HamburgerMenu"
+      xmlns:local="clr-namespace:test.Pages"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="MenuItem">
+
+    <Grid>
+       
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="60"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+
+        
+        <!--menu on right side-->
+        
+        <HamburgerMenu:HamburgerMenu Background="Transparent" Grid.Column="0" MenuIconColor="Black" SelectionIndicatorColor="White" MenuItemForeground="Black" HorizontalAlignment="Left" Width="30" Grid.RowSpan="2" >
+        </HamburgerMenu:HamburgerMenu>
+
+        <HamburgerMenu:HamburgerMenu Background="Transparent" MenuIconColor="Black" SelectionIndicatorColor="White" MenuItemForeground="Black" HorizontalAlignment="Left" Grid.RowSpan="2">
+            <HamburgerMenu:HamburgerMenuItem  Text="Profile"  Selected="HamburgerMenuItem_Selected" Icon="Assets/profileico.png" Height="40" />
+            <HamburgerMenu:HamburgerMenuItem  Text="Table View" Selected="HamburgerMenuItem_Selected_1" Icon="Assets/tableico.png" Height="40"/>
+            <HamburgerMenu:HamburgerMenuItem  Text="Likes" Height="40"/>
+            <HamburgerMenu:HamburgerMenuItem  Text="Lists" Height="40"/>
+        </HamburgerMenu:HamburgerMenu>
+
+        <!--menu on right side-->
+       
+        
+        
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Grid.Row="0" Grid.Column="1" Margin="0 0 10 0" >  <!--context name and image-->
+                
+                <TextBlock x:Name="topName" Text="{Binding User.Name}" VerticalAlignment="Center" Margin="0 0 10 0" Foreground="Black" FontSize="13"/> 
+
+                <Ellipse HorizontalAlignment="Center" VerticalAlignment="Center" Width="50" Height="50" StrokeThickness="1" Stroke="Aqua" Margin="0 0 10 0">
+                     <Ellipse.Fill>
+                             <ImageBrush ImageSource="{Binding User.Avatar}" x:Name="topImage"/>
+                     </Ellipse.Fill>
+                    
+                </Ellipse>
+
+
+                     <StackPanel Orientation="Vertical" VerticalAlignment="Center" >
+                             <Button Content="Exit" Click="ExitButtonclick"  />
+                     </StackPanel>
+             </StackPanel>
+
+
+
+
+
+        <StackPanel Grid.Column="1" Grid.Row="1">
+            <!--white border and frame-->
+            <Border Width="800" Height="390" Background="LightGray"  BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Center" VerticalAlignment="Center"
+                CornerRadius="30">
+
+                <Frame x:Name="switcher" NavigationUIVisibility="Hidden"/>
+                <!--main frame on app-->
+
+            </Border>
+        </StackPanel>
+        
+        
+    </Grid>
+</Page>
