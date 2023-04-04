@@ -1,0 +1,32 @@
+﻿<Window x:Class="test.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:test"
+        mc:Ignorable="d"
+        Height="600" Width="900" WindowStartupLocation="CenterScreen" 
+        Title="AccountView"
+        WindowStyle="ToolWindow">
+
+
+    <Window.Background>  <!--Gradient brush background in app-->
+        <LinearGradientBrush>
+            <GradientStop Color="Coral" Offset="0" />
+            <GradientStop Color="Violet" Offset="1" />
+        </LinearGradientBrush>
+    </Window.Background>
+    
+    <Grid>
+        <Grid.RowDefinitions>
+            
+            <RowDefinition/>
+             </Grid.RowDefinitions>
+
+        <!--frame take loginform and signupform; Start frame navigation-->
+        
+        <Frame Name="swap" Grid.Row="0" NavigationUIVisibility="Hidden" />
+
+
+    </Grid>
+</Window>
